@@ -15,9 +15,9 @@ find_package(Qt6 COMPONENTS Core Gui Widgets REQUIRED)
 add_executable(SmartCalculator
         main.cpp
         AST.h
-        Lexer.h
-        Parser.h
+#        AST.cpp
         MainWindow.h
+        AST.cpp
 )
 
 target_link_libraries(SmartCalculator PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets)
