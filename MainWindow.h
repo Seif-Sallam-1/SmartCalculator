@@ -14,11 +14,8 @@
 #include <QWheelEvent>
 #include <QRegularExpressionValidator>
 #include <QMessageBox>
-
-// --- CRITICAL FIX: Include the Header (.h), NOT the implementation (.cpp) ---
 #include "AST.h"
 
-// --- Custom Zoomable View ---
 class ZoomableView : public QGraphicsView {
 public:
     ZoomableView(QGraphicsScene *scene) : QGraphicsView(scene) {
@@ -37,7 +34,6 @@ protected:
     }
 };
 
-// --- Custom Button ---
 class CalcButton : public QPushButton {
 public:
     CalcButton(const QString &text, const QString &color = "#2D2D2D") : QPushButton(text) {
@@ -55,7 +51,6 @@ public:
     }
 };
 
-// --- Main Window ---
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -69,33 +64,24 @@ public:
         setWindowTitle("Data Structure SyntaxTree Calculator");
         resize(600, 900);
         setStyleSheet("QMainWindow { background-color: #121212; }");
-
         QWidget *centralWidget = new QWidget;
         setCentralWidget(centralWidget);
-
         QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
         mainLayout->setSpacing(15);
         mainLayout->setContentsMargins(15, 15, 15, 15);
-
-        // Display
         display = new QLineEdit;
         display->setPlaceholderText("Enter expression (e.g. 5+3*2)");
         display->setAlignment(Qt::AlignRight);
         display->setStyleSheet("QLineEdit { background-color: #1E1E1E; color: #00E5FF; font-size: 36px; border: 1px solid #333; border-radius: 10px; padding: 10px; }");
         display->setValidator(new QRegularExpressionValidator(QRegularExpression("[0-9+\\-*/().]+"), this));
         mainLayout->addWidget(display);
-
-        // Graphics View
         scene = new QGraphicsScene;
         view = new ZoomableView(scene);
         view->setStyleSheet("border: 1px solid #333; border-radius: 10px;");
         mainLayout->addWidget(view);
-
-        // Keypad
         QWidget *keypadWidget = new QWidget;
         QGridLayout *gridLayout = new QGridLayout(keypadWidget);
         gridLayout->setSpacing(10);
-
         struct BtnDef { QString label; QString color; };
         QList<QList<BtnDef>> rows = {
             {{"AC", "#D32F2F"}, {"DEL", "#C62828"}, {"(", "#424242"}, {")", "#424242"}},
@@ -149,11 +135,9 @@ private slots:
 
     void drawTreeRecursive(AST::BNode* node, double x, double y) {
         if (!node) return;
-
         int nodeSize = 50;
         int verticalGap = 100;
         int leafSpacing = 70;
-
         std::vector<AST::BNode*> children;
         if (node->left) children.push_back(node->left);
         if (node->right) children.push_back(node->right);
@@ -194,4 +178,4 @@ private slots:
     }
 };
 
-#endif // MAINWINDOW_H
+#endif

@@ -1,4 +1,4 @@
-#include "AST.h"  // Correctly including the .h file
+#include "AST.h"
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// --- BNode Implementation ---
 AST::BNode::BNode(string val, BNode *l, BNode *r)
     : data(val), left(l), right(r) {
 }
@@ -17,7 +16,6 @@ AST::BNode::~BNode() {
     delete right;
 }
 
-// --- AST Private Helpers ---
 int AST::getPrecedence(const string &op) {
     if (op == "_NEG_") return 3;
     if (op == "*" || op == "/") return 2;
